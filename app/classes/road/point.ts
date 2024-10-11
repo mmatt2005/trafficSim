@@ -8,3 +8,5 @@ class Point {
     coordinate: PointType;
     
 }
+
+// test linkage commit
