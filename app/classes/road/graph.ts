@@ -1,30 +1,47 @@
+import { Draw } from "./draw";
 import { Point, PointType } from "./point";
 
-export class Graph {
+export class Graph extends Draw {
     points: PointType[]
 
     constructor(defaultPoints: PointType[]) {
+        super();
         this.points = defaultPoints
     }
 
-    drawLine(ctx: CanvasRenderingContext2D, point1: PointType, point2: PointType) { 
-        ctx.beginPath();
 
-        // point1
-        ctx.moveTo(point1.x, point1.y);
-
-        //point2
-        ctx.lineTo(point2.x, point2.y);
-
-        ctx.stroke();
-    }
 
     addPoint(newPoint: PointType) {
         this.points.push(newPoint)
     }
 
-    updatePoint(updatedPoint: PointType) { 
-        // const findUpdatedPoint = this.points.find()
+    updatePoint(updatedPoint: PointType, ctx: CanvasRenderingContext2D) {
+        console.log("BEING CALLED")
+        const findUpdatedPoint = this.points.find(point => point.id === updatedPoint.id)
+        console.log(this.points)
+        if (!findUpdatedPoint) return null
+        this.points = [...this.points.filter((point) => point.id === findUpdatedPoint.id)]
+        console.log(this.points)
+
+        this.drawPoints(ctx)
+
+        return this.points
+
+    }
+
+    removePoint(removedPoint: PointType, ctx: CanvasRenderingContext2D) { 
+        const findPointToRemove = this.points.find(point => point.id === removedPoint.id)
+        if (!findPointToRemove) return null
+
+        console.log(this.points)
+        this.points = [...this.points.filter((point) => point.id !== removedPoint.id)]
+        console.log(this.points)
+
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+
+        return this.points
+
     }
 
     drawPoints(ctx: CanvasRenderingContext2D) {
@@ -38,4 +55,6 @@ export class Graph {
             ctx.fill();
         }
     }
+
+
 }

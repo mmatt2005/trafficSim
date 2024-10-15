@@ -1,4 +1,12 @@
-export type PointType = { x: number, y: number, color: string, id: string }
+import { Graph } from "./graph"
+
+export type PointType = {
+    x: number,
+    y: number,
+    color: string,
+    id: string,
+    graph: Graph
+}
 
 export class Point implements PointType {
     constructor(point: PointType) {
@@ -6,6 +14,7 @@ export class Point implements PointType {
         this.y = point.y
         this.color = point.color
         this.id = point.id
+        this.graph = point.graph
     }
 
     randomColor() {
@@ -15,18 +24,17 @@ export class Point implements PointType {
 
     x: number
     y: number
-    color: string 
+    color: string
     id: string
-
-    changeColor(newColor: string) { 
-        this.color = newColor
-    }
+    graph: Graph
 
 
-    draw(ctx: CanvasRenderingContext2D) { 
+
+
+    draw(ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
         ctx.fillStyle = this.color;
-        ctx.arc(this.x, this.y , 9, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, 9, 0, Math.PI * 2);
         ctx.fill();
     }
 }

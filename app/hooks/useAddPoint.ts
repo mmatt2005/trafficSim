@@ -30,7 +30,8 @@ export function useAddPoint(graph: Graph, canvasRef: MutableRefObject<HTMLCanvas
 
 
 
-                const point = new Point({ x: x, y: y, color: randomColor(), id: uuidv4() })
+
+                const point = new Point({ x: x, y: y, color: randomColor(), id: uuidv4(), graph })
                 graph.addPoint(point)
                 graph.drawPoints(ctx)
 
@@ -43,5 +44,9 @@ export function useAddPoint(graph: Graph, canvasRef: MutableRefObject<HTMLCanvas
         window.addEventListener("click", handleClickEvent)
 
         return () => window.removeEventListener("click", handleClickEvent)
-    }, [canvasRef, graph])
+    }, [canvasRef, graph, uiPoints])
+
+    return { 
+        points: uiPoints
+    }
 }
