@@ -40,6 +40,7 @@ export function useAddPoint(graph: Graph, canvasRef: MutableRefObject<HTMLCanvas
             }
 
         }
+        // filler commit 10/16/24
 
         window.addEventListener("click", handleClickEvent)
 
