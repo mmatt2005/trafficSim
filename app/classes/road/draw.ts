@@ -13,5 +13,27 @@ export class Draw {
         ctx.stroke();
     }
 
+    
+    drawPoints(ctx: CanvasRenderingContext2D, points: PointType[]) {
+        if (points.length === 0) {
+            console.log("Cannot draw points due to points.length being 0")
+            return null
+        }
+
+        for (let i = 0; i < points.length; i++) {
+            const x = points[i].x
+            const y = points[i].y
+
+            ctx.beginPath();
+            ctx.fillStyle = points[i].color;
+            ctx.arc(x, y, points[i].size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    reDrawPoints(ctx: CanvasRenderingContext2D, points: PointType[]) {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        this.drawPoints(ctx, points)
+    }
 
 }

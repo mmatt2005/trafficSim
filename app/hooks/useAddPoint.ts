@@ -12,7 +12,7 @@ export function useAddPoint(graph: Graph, canvasRef: MutableRefObject<HTMLCanvas
 
 
     function randomColor() {
-        const colors = ["red", "pink", "blue", "green", "orange"]
+        const colors = ["red", "pink", "blue", "green", "orange", "purple", "DeepSkyBlue", "DarkRed", "DarkOliveGreen", "Grey", "Gold", "Khaki"]
         return colors[Math.floor(Math.random() * colors.length)]
     }
 
@@ -31,16 +31,15 @@ export function useAddPoint(graph: Graph, canvasRef: MutableRefObject<HTMLCanvas
 
 
 
-                const point = new Point({ x: x, y: y, color: randomColor(), id: uuidv4(), graph })
+                const point = new Point({ x: x, y: y, color: randomColor(), id: uuidv4(), graph, size: 15 })
                 graph.addPoint(point)
-                graph.drawPoints(ctx)
+                graph.drawPoints(ctx, [...uiPoints, point])
 
                 setUiPoints([...uiPoints, point])
 
             }
 
         }
-        // filler commit 10/16/24
 
         window.addEventListener("click", handleClickEvent)
 

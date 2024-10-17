@@ -10,17 +10,11 @@ export default function Home() {
 
   console.log("RE RENDER ")
 
-  // useEffect(() => {
-  //   const ctx = canvasRef.current?.getContext("2d")
-  //   if (!ctx) return console.log("TEST")
-  //   setInterval(() => { 
-  //     console.log("TESTING")
-  //     graph.drawPoints(ctx)
-  //   }, 1000)
-  // }, [canvasRef])
 
   return <>
-    <canvas ref={canvasRef} id="canvas" height={500} width={500} className="bg-stone-800  absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2" />
+    <div className="w-full h-screen">
+      <canvas ref={canvasRef} id="canvas" height={500} width={500} className="bg-stone-800  absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2" />
+    </div>
     <UiMain graph={graph} canvas={canvasRef} />
   </>
 }

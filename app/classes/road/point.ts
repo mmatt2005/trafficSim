@@ -6,6 +6,7 @@ export type PointType = {
     color: string,
     id: string,
     graph: Graph
+    size: number
 }
 
 export class Point implements PointType {
@@ -15,11 +16,7 @@ export class Point implements PointType {
         this.color = point.color
         this.id = point.id
         this.graph = point.graph
-    }
-
-    randomColor() {
-        const colors = ["red", "pink", "blue", "green", "orange"]
-        return colors[Math.floor(Math.random() * colors.length)]
+        this.size = point.size
     }
 
     x: number
@@ -27,14 +24,5 @@ export class Point implements PointType {
     color: string
     id: string
     graph: Graph
-
-
-
-
-    draw(ctx: CanvasRenderingContext2D) {
-        ctx.beginPath();
-        ctx.fillStyle = this.color;
-        ctx.arc(this.x, this.y, 9, 0, Math.PI * 2);
-        ctx.fill();
-    }
+    size: number
 }
