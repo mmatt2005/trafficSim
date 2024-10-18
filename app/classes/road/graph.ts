@@ -1,18 +1,24 @@
+import { Line, LineType } from "../line";
 import { Draw } from "./draw";
 import { Point, PointType } from "./point";
 
 export class Graph extends Draw {
-    points: PointType[]
+    points: Point[]
+    lines: Line[]
 
-    constructor(defaultPoints: PointType[]) {
+    constructor() {
         super();
-        this.points = defaultPoints
+        this.points = []
+        this.lines = []
+        this.setGraph(this)
     }
 
-
-
-    addPoint(newPoint: PointType) {
+    addPoint(newPoint: Point) {
         this.points.push(newPoint)
+    }
+
+    addLine(newLine: Line) {
+        this.lines.push(newLine)
     }
 
     updatePoint(updatedPoint: PointType, ctx: CanvasRenderingContext2D) {

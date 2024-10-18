@@ -1,16 +1,17 @@
 "use client"
-import { MutableRefObject, useMemo, useRef, useState } from "react"
-import { Point, PointType } from "../classes/road/point"
-import { useGraph } from "../stores/uiGraph"
+
+import { MutableRefObject, useMemo, useState } from "react";
+import { PointType } from "./classes/road/point";
 import { Button } from "@/components/ui/button";
-import { Graph } from "../classes/road/graph";
-import { useAddPoint } from "../hooks/useAddPoint";
-import UiPointSize from "@/components/uiPointSize";
 import UiPointColor from "@/components/uiPointColor";
 import UiPointRemove from "@/components/uiPointRemove";
 import UiPointSelect from "@/components/uiPointSelect";
+import UiPointSize from "@/components/uiPointSize";
+import { useAddPoint } from "./hooks/useAddPoint";
+import { useGraph } from "./stores/uiGraph";
+import { Graph } from "./classes/road/graph";
 
-export default function UiMain({ graph, canvas }: {
+export default function UiPointsMain({ graph, canvas }: {
     graph: Graph
     canvas: MutableRefObject<HTMLCanvasElement | null>
 }) {
@@ -25,10 +26,12 @@ export default function UiMain({ graph, canvas }: {
 
     const uiPoints = useGraph((state) => state.uiPoints)
 
+    const setUiLines = useGraph((state) => state.setUiLines)
+
+
 
     useAddPoint(graph, canvas)
-
-    return <div className="flex flex-wrap gap-5 p-5 ">
+    return <>
         {
             uiPoints.map(point => {
                 return <div
@@ -47,7 +50,7 @@ export default function UiMain({ graph, canvas }: {
                     <UiPointSize graph={graph} canvas={canvas} point={point} />
                     <div className="mt-5 flex flex-col gap-2">
                         <UiPointRemove graph={graph} canvas={canvas} point={point} />
-                        <UiPointSelect point={point} selectedPoints={selectedPoints} setSelectedPoints={setSelectedPoints}/>
+                        <UiPointSelect point={point} selectedPoints={selectedPoints} setSelectedPoints={setSelectedPoints} />
                     </div>
                 </div>
             })
@@ -59,10 +62,14 @@ export default function UiMain({ graph, canvas }: {
                 const ctx = canvas.current.getContext("2d")
                 if (!ctx) return console.log("No ctx")
 
-                graph.drawLine(ctx, selectedPoints[0], selectedPoints[1])
+                setUiLines([...graph.drawLine(ctx, selectedPoints[0], selectedPoints[1])])
 
                 setSelectedPoints([])
+
+
+
+            
             }}
         >Create line at 2 points</Button>}
-    </div>
+    </>
 }

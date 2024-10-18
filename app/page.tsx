@@ -2,11 +2,11 @@
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Graph } from "./classes/road/graph"
-import UiMain from "./ui/uiMain"
+import UiMain from "./uiMain"
 export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
-  const graph = new Graph([])
+  const graph = new Graph()
 
   console.log("RE RENDER ")
 
