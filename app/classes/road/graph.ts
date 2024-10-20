@@ -10,7 +10,7 @@ export class Graph extends Draw {
         super();
         this.points = []
         this.lines = []
-        this.setGraph(this)
+        this.setGraph(this, this.lines, this.points)
     }
 
     addPoint(newPoint: Point) {
@@ -23,7 +23,7 @@ export class Graph extends Draw {
 
     updatePoint(updatedPoint: PointType, ctx: CanvasRenderingContext2D) {
         const findUpdatedPointIndex = this.points.findIndex(point => point.id === updatedPoint.id)
-        if (!findUpdatedPointIndex) return null
+        if (findUpdatedPointIndex === -1) return null
 
         this.points = this.points.map((point, index) => { 
             if (index === findUpdatedPointIndex) {
@@ -37,6 +37,24 @@ export class Graph extends Draw {
 
         return this.points
 
+    }
+
+    updateLine(updatedLine: LineType, ctx: CanvasRenderingContext2D) { 
+        const findUpdatedLineIndex = this.lines.findIndex(line => line.id === updatedLine.id)
+        if (findUpdatedLineIndex === -1) return null
+
+        this.lines = this.lines.map((line, index) => { 
+            if (index === findUpdatedLineIndex) { 
+                return this.lines[index] = new Line(updatedLine)
+            } else { 
+                return line
+            }
+        })
+
+        this.reDrawCanvas(ctx)
+
+
+        return this.lines
     }
 
     removePoint(removedPoint: PointType, ctx: CanvasRenderingContext2D) { 
