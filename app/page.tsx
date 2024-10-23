@@ -8,12 +8,18 @@ export default function Home() {
 
   const graph = new Graph()
 
-  console.log("RE RENDER ")
+  // Wait till the component mounts so we have a valid ref value.
+  useEffect(() => { 
+    const ctx = canvasRef.current?.getContext("2d")
+    if (ctx) { 
+      graph.setCtx(ctx)
+    }
+  }, [])
 
 
   return <>
     <div className="w-full h-screen">
-      <canvas ref={canvasRef} id="canvas" height={500} width={500} className="bg-stone-800  absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2" />
+      <canvas ref={canvasRef} id="canvas" height={500} width={1000} className="bg-stone-800  absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2" />
     </div>
     <UiMain graph={graph} canvas={canvasRef} />
   </>

@@ -2,9 +2,9 @@
 
 import { Graph } from "@/app/classes/road/graph"
 import { MutableRefObject, useState } from "react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
 import { PointType } from "@/app/classes/road/point"
 import { useGraph } from "@/app/stores/uiGraph"
 
@@ -22,9 +22,7 @@ export default function UiPointSize({ graph, canvas, point }: {
             variant={"outline"}
             className="mt-1 w-full"
             onClick={() => {
-                const ctx = canvas.current?.getContext("2d")
-                if (!ctx) return
-                const updatedPoints = graph.updatePoint({...point, size: size}, ctx)
+                const updatedPoints = graph.updatePoint({...point, size: size})
                 console.log(updatedPoints)
                 if (updatedPoints) {
                     setUiPoints([...updatedPoints])

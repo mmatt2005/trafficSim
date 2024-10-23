@@ -2,7 +2,7 @@
 
 import { PointType } from "@/app/classes/road/point";
 import { useMemo, useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 export default function UiPointSelect({point, selectedPoints, setSelectedPoints}: {
     point: PointType

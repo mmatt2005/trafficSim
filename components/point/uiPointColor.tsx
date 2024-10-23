@@ -2,9 +2,9 @@
 
 import { Graph } from "@/app/classes/road/graph"
 import { MutableRefObject, useRef, useState } from "react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
+import { Button } from "../ui/button"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
 import { PointType } from "@/app/classes/road/point"
 import { useGraph } from "@/app/stores/uiGraph"
 
@@ -15,7 +15,6 @@ export default function UiPointColor({ graph, canvas, point }: {
     point: PointType
 }) {
     const colorInputRef = useRef<HTMLInputElement | null>(null)
-    const ctx = canvas.current?.getContext("2d")
     const setUiPoints = useGraph((state) => state.setUiPoints)
 
     return <div className="">
@@ -25,8 +24,7 @@ export default function UiPointColor({ graph, canvas, point }: {
             variant={"outline"}
             className="mt-1 w-full"
             onClick={() => {
-                if (!ctx) return console.log("NO CTX")
-                const updatedPoints = graph.updatePoint({ ...point, color: colorInputRef.current?.value || "" }, ctx)
+                const updatedPoints = graph.updatePoint({ ...point, color: colorInputRef.current?.value || "" })
                 if (updatedPoints) {
                     setUiPoints([...updatedPoints])
                 }

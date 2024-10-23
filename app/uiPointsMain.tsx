@@ -3,13 +3,14 @@
 import { MutableRefObject, useMemo, useState } from "react";
 import { PointType } from "./classes/road/point";
 import { Button } from "@/components/ui/button";
-import UiPointColor from "@/components/uiPointColor";
-import UiPointRemove from "@/components/uiPointRemove";
-import UiPointSelect from "@/components/uiPointSelect";
-import UiPointSize from "@/components/uiPointSize";
+import UiPointColor from "@/components/point/uiPointColor";
+
 import { useAddPoint } from "./hooks/useAddPoint";
 import { useGraph } from "./stores/uiGraph";
 import { Graph } from "./classes/road/graph";
+import UiPointRemove from "@/components/point/uiPointRemove";
+import UiPointSelect from "@/components/point/uiPointSelect";
+import UiPointSize from "@/components/point/uiPointSize";
 
 export default function UiPointsMain({ graph, canvas }: {
     graph: Graph
@@ -36,7 +37,7 @@ export default function UiPointsMain({ graph, canvas }: {
             uiPoints.map(point => {
                 return <div
                     key={point.id}
-                    className={` bg-neutral-900 p-5 rounded-lg
+                    className={` bg-neutral-900 p-5 rounded-lg z-50
                         ${selectedPoints.some(spoint => spoint.x === point.x && spoint.y == point.y) && "border-4"}
                     `}
                 >
@@ -62,13 +63,16 @@ export default function UiPointsMain({ graph, canvas }: {
                 const ctx = canvas.current.getContext("2d")
                 if (!ctx) return console.log("No ctx")
 
-                setUiLines([...graph.drawLine(ctx, selectedPoints[0], selectedPoints[1])])
+                const updatedLines = graph.drawLine(selectedPoints[0], selectedPoints[1])
+                if (updatedLines) {
+                    setUiLines(updatedLines)
+                }
 
                 setSelectedPoints([])
 
 
 
-            
+
             }}
         >Create line at 2 points</Button>}
     </>

@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { PointType } from "../classes/road/point"
-import { Line } from "../classes/line"
+import { Line } from "../classes/road/line"
 
 
 export interface GraphInterface {

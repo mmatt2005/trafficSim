@@ -33,7 +33,7 @@ export function useAddPoint(graph: Graph, canvasRef: MutableRefObject<HTMLCanvas
 
                 const point = new Point({ x: x, y: y, color: randomColor(), id: uuidv4(), graph, size: 15 })
                 graph.addPoint(point)
-                graph.drawPoints(ctx, [...uiPoints, point])
+                graph.drawPoints([...uiPoints, point])
 
                 setUiPoints([...uiPoints, point])
 

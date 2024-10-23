@@ -1,4 +1,4 @@
-import { PointType } from "./road/point"
+import { PointType } from "../road/point"
 
 export type LineType = {
     color: string
@@ -19,4 +19,5 @@ export class Line {
     width: number
     id: string
     points: PointType[]
+
 }

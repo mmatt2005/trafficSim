@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { MutableRefObject, useState } from "react";
-import { Graph } from "./classes/road/graph";
-import { PointType } from "./classes/road/point";
-import { Line } from "./classes/line";
-import { useGraph } from "./stores/uiGraph";
+import { Graph } from "../../app/classes/road/graph";
+import { PointType } from "../../app/classes/road/point";
+import { Line } from "../../app/classes/road/line";
+import { useGraph } from "../../app/stores/uiGraph";
 
 export default function UiLineColor({ graph, canvas, line }: {
     graph: Graph
@@ -24,9 +24,7 @@ export default function UiLineColor({ graph, canvas, line }: {
             className="mt-1 w-full"
             onClick={() => {
                 console.log("TEST")
-                const ctx = canvas.current?.getContext("2d")
-                if (!ctx) return console.log("NO CTX")
-                const updatedLines = graph.updateLine({ ...line, color: inputColor }, ctx)
+                const updatedLines = graph.updateLine({ ...line, color: inputColor })
                 if (updatedLines) {
                     setUiLines([...updatedLines])
                 }

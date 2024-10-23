@@ -3,7 +3,8 @@
 import { MutableRefObject } from "react"
 import { Graph } from "./classes/road/graph"
 import { useGraph } from "./stores/uiGraph"
-import UiLineColor from "./uiLineColor"
+import UiLineColor from "../components/line/uiLineColor"
+import UiLineWidth from "@/components/line/uiLineWidth"
 
 export default function UiLinesMain({ graph, canvas }: {
     graph: Graph
@@ -11,7 +12,7 @@ export default function UiLinesMain({ graph, canvas }: {
 }) {
     const uiLines = useGraph((state) => state.uiLines)
 
-    return <div className="">
+    return <>
         {
             uiLines.map(line => {
                 return <div
@@ -20,17 +21,20 @@ export default function UiLinesMain({ graph, canvas }: {
                 >
                     <div className="mb-5">
                         <h1 className="text-lg">Line</h1>
-                        {line.points.map((point, index) => (
-                            <div key={index}>
-                                <p className="text-sm ">Point {index + 1}</p>
-                                <p className="text-sm text-muted-foreground">{point.x} {point.y}</p>
-                            </div>
-                        ))}
-                        <UiLineColor graph={graph} canvas={canvas} line={line}/>
+                        <div className="flex gap-5 flex-wrap">
+                            {line.points.map((point, index) => (
+                                <div key={index}>
+                                    <p className="text-sm ">Point {index + 1}</p>
+                                    <p className="text-sm text-muted-foreground">x: {point.x} y: {point.y}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <UiLineColor graph={graph} canvas={canvas} line={line} />
+                        <UiLineWidth graph={graph} canvas={canvas} line={line}/>
                     </div>
                 </div>
             })
         }
 
-    </div>
+    </>
 }
